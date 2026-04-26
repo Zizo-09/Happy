@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Happy | Spider-Verse</title>
+
+<style>
+:root{
+  --bg:#05070d;
+  --text:#e5e7eb;
+  --muted:#94a3b8;
+  --accent:#ef4444;
+  --glass:rgba(255,255,255,0.04);
+}
+
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  font-family: ui-sans-serif, system-ui, Arial;
+}
+
+body{
+  background: var(--bg);
+  color: var(--text);
+  overflow-x:hidden;
+}
+
+/* animated gradient wash */
+body::before{
+  content:"";
+  position:fixed;
+  inset:0;
+  background:
+    radial-gradient(circle at 20% 20%, rgba(239,68,68,0.12), transparent 40%),
+    radial-gradient(circle at 80% 80%, rgba(96,165,250,0.10), transparent 40%);
+  animation: floatbg 10s ease-in-out infinite;
+  z-index:-1;
+}
+
+@keyframes floatbg{
+  0%,100%{transform:translateY(0px);}
+  50%{transform:translateY(20px);}
+}
+
+/* layout */
+.container{
+  max-width:1000px;
+  margin:auto;
+  padding:80px 20px;
+}
+
+/* hero */
+.hero{
+  text-align:center;
+  margin-bottom:60px;
+}
+
+.hero h1{
+  font-size:3.5rem;
+  letter-spacing:1px;
+}
+
+.hero p{
+  color:var(--muted);
+  margin-top:10px;
+}
+
+/* cards */
+.grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit, minmax(260px, 1fr));
+  gap:20px;
+}
+
+.card{
+  background:var(--glass);
+  padding:22px;
+  border-radius:18px;
+  backdrop-filter: blur(14px);
+  transition:0.3s;
+  transform:translateY(20px);
+  opacity:0;
+}
+
+.card.show{
+  transform:translateY(0);
+  opacity:1;
+}
+
+.card:hover{
+  transform:translateY(-5px);
+}
+
+h2{
+  font-size:0.85rem;
+  color:var(--muted);
+  letter-spacing:1px;
+  text-transform:uppercase;
+  margin-bottom:10px;
+}
+
+p{
+  color:#cbd5e1;
+  line-height:1.6;
+}
+
+.highlight{
+  color:var(--accent);
+  font-weight:600;
+}
+
+/* spotify */
+.spotify{
+  margin-top:30px;
+}
+
+iframe{
+  width:100%;
+  border-radius:14px;
+  height:152px;
+  border:none;
+}
+
+/* floating spiders */
+.spider{
+  position:fixed;
+  top:-50px;
+  font-size:18px;
+  opacity:0.15;
+  animation: fall linear infinite;
+}
+
+@keyframes fall{
+  0%{transform:translateY(-100px);}
+  100%{transform:translateY(110vh);}
+}
+
+footer{
+  text-align:center;
+  margin-top:60px;
+  color:var(--muted);
+}
+</style>
+</head>
+
+<body>
+
+<!-- ambient spiders -->
+<div class="spider" style="left:10%;animation-duration:12s;">🕷️</div>
+<div class="spider" style="left:50%;animation-duration:10s;">🕷️</div>
+<div class="spider" style="left:80%;animation-duration:14s;">🕷️</div>
+
+<div class="container">
+
+<!-- HERO -->
+<div class="hero">
+  <h1>Happy</h1>
+  <p>Spider-Verse Dev • 17 • clean code aesthetic</p>
+</div>
+
+<!-- GRID -->
+<div class="grid">
+
+  <div class="card">
+    <h2>About</h2>
+    <p><span class="highlight">Name:</span> Happy</p>
+    <p><span class="highlight">Age:</span> 17</p>
+  </div>
+
+  <div class="card">
+    <h2>Likes</h2>
+    <p>music, cats, patty</p>
+  </div>
+
+  <div class="card">
+    <h2>Dislikes</h2>
+    <p>idk</p>
+  </div>
+
+</div>
+
+<!-- SPOTIFY -->
+<div class="card spotify">
+  <h2>Now Playing</h2>
+  <iframe
+    src="https://open.spotify.com/embed/user/9gugav3cwnfg2ivmf7pbx2ku4"
+    allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture">
+  </iframe>
+</div>
+
+<footer>
+  built like a dev portfolio in the Spider-Verse 🕸️
+</footer>
+
+</div>
+
+<script>
+const cards=document.querySelectorAll('.card');
+
+const obs=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting){
+      e.target.classList.add('show');
+    }
+  });
+},{threshold:0.2});
+
+cards.forEach(c=>obs.observe(c));
+</script>
+
+</body>
+</html>
